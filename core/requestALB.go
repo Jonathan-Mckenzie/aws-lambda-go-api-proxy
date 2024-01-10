@@ -115,7 +115,16 @@ func (r *RequestAccessorALB) EventToRequest(req events.ALBTargetGroupRequest) (*
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
 	}
-	serverAddress := "https://" + req.Headers["host"]
+
+	var serverAddress string
+	if _, ok := req.Headers["host"]; !ok {
+		if req.MultiValueHeaders["host"] != nil && len(req.MultiValueHeaders["host"]) > 0 {
+			serverAddress = "https://" + req.MultiValueHeaders["host"][0]
+		}
+	} else {
+		serverAddress = "https://" + req.Headers["host"]
+	}
+
 	//  if customAddress, ok := os.LookupEnv(CustomHostVariable); ok {
 	//  	serverAddress = customAddress
 	//  }
