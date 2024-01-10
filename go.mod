@@ -1,6 +1,6 @@
-module github.com/awslabs/aws-lambda-go-api-proxy
+module github.com/Jonathan-Mckenzie/aws-lambda-go-api-proxy
 
-go 1.20
+go 1.21
 
 require (
 	github.com/aws/aws-lambda-go v1.41.0
